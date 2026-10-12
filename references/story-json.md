@@ -18,11 +18,11 @@ All story times are anchors resolved against the **cleaned** take (`voice.json`)
 - `quiet_from` — `"scene:N"` or an anchor: music drums drop from here to the closing button.
 - `accents` — `[[anchor, "boom"]]`: a BOOM SWOOSH landing on a big moment (a number, a twist).
 - `captions` — `{"lNN": "corrected Thai"}` for lines the recogniser misspelled; other lines use the transcript.
-- `logo` — `true` puts the approved wordmark at the end.
+- `logo` — `true` puts the approved wordmark large on the end card; `logo_top` (default `true`) keeps it small at the top for the whole reel.
 - `scenes[]` — one per plate, in order:
   - `plate`: a name in `gen/` (`gen/<plate>.png`); a plate may be reused (the end card often reuses the opening plate).
   - `start`: anchor (the first scene starts at `0`); usually just before the line that opens the beat, e.g. `"l07-0.06"`.
-  - `chapter`: the small black label, e.g. `"No. 05 · THE MARKET"`.
+  - `chapter`: the small black label: topic words only, e.g. `"THE MARKET"`, `"PARIS · 1900"`. No numbering (rejected by the resolver).
   - `cam`: `[[anchor, x, y, zoom], …]` in plate pixels (1024×1536); the first key is `"start"`. Zoom 1 shows the full width; 1.6–2.0 is a push-in on a face or object. Each move eases over 0.8 s.
   - `marks`: `["circle", anchor, x, y, rx, ry, "teal"|"lav"]` or `["walk", anchor, x, y, width, amplitude, "teal"|"lav", seconds?]` (a hand-drawn random walk), in plate pixels.
   - `strips`: `[text, anchor, cx, cy, size, rotation, "teal"|"lav"|null]` in screen pixels (1080×1920; the plate spans x 50–1030, y 300–1525). Typical sizes 100–190; y 520 (upper) and 1040–1230 (lower) avoid most faces; the renderer keeps strips inside x 60–940.
@@ -99,7 +99,7 @@ All story times are anchors resolved against the **cleaned** take (`voice.json`)
   {
    "plate": "s01-hook",
    "start": 0,
-   "chapter": "No. 01 · THE MAN",
+   "chapter": "THE MAN",
    "cam": [
     [
      "start",
@@ -170,7 +170,7 @@ All story times are anchors resolved against the **cleaned** take (`voice.json`)
   {
    "plate": "s02-doubt",
    "start": "l03-0.12",
-   "chapter": "No. 02 · DOUBT",
+   "chapter": "DOUBT",
    "cam": [
     [
      "start",
@@ -220,7 +220,7 @@ All story times are anchors resolved against the **cleaned** take (`voice.json`)
   {
    "plate": "s03-paris",
    "start": "l04-0.2",
-   "chapter": "No. 03 · PARIS",
+   "chapter": "PARIS",
    "cam": [
     [
      "start",
@@ -269,7 +269,7 @@ All story times are anchors resolved against the **cleaned** take (`voice.json`)
  "end_card": {
   "plate": "s01-hook",
   "after_speech": 0.35,
-  "chapter": "THE END · 1900 → TODAY",
+  "chapter": "1900 → TODAY",
   "cam": [
    [
     "start",

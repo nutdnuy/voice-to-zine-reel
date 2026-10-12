@@ -39,6 +39,7 @@ Paths: `SK = ~/.claude/skills/voice-to-zine-reel`, `PY = ~/.venvs/animate/bin/py
    - **Anchors:** every time is anchored to the cleaned take (`"l05@14+0.2"`).
    - **Camera and marks:** for coordinates, build `$SK/scripts/plate_grid.sh <project> grid.jpg` and read it. A grid square is 256 plate px; plate x = 4 × tile x.
    - **Rules of thumb:** something new every 2–3 s (a camera key, a mark or a strip); 1–2 strips per scene of ≤ 4 words, bold English or Thai; push in on the detail the line names; one circle or random walk where it helps. Correct recogniser spellings in `captions`. Set `payoff` (the reveal line) and `accents` (`boom` on a big number).
+   - **Chapter labels:** topic words only ("THE MARKET", "PARIS · 1900", "1900 → TODAY"). Never number them ("No. 01", "EP 2", "Part 3"): Nuth does not want viewers to see a count (2026-10-12). `resolve_story.py` rejects numbered labels.
 7. **Build both reels.** Run `$SK/scripts/make_reel.sh <project>`, about 6 minutes. It resolves the story, renders, places 100+ sound events from the scene data, generates the music bed (drums drop before the payoff and through the close), mixes A and B, and writes `renders/<name>-A-sfx.mp4`, `renders/<name>-B-sfx-music.mp4` and 720p `-preview.mp4` copies (< 30 MB), plus `review-output.txt`. For a sound-only change, use `make_reel.sh <project> --no-render`.
 8. **Check.** Look at stills of every scene: `node ~/.claude/skills/animate/tools/still.mjs <project> t1,t2,… out.png --scale 0.3`. Fix anything that is covered (a face under a strip, a mark off its object). Read the review:
    - `text: PASS` with 0 in the safe zone;
@@ -60,7 +61,7 @@ Paths: `SK = ~/.claude/skills/voice-to-zine-reel`, `PY = ~/.venvs/animate/bin/py
 
 ## Brand
 
-- **Logo:** QuantCorner editorial uses the approved wordmark, imported unchanged and drawn after the print pass (no texture, rotation or recolour). Follow Visual Design Routing, Route 2 (generated components + authentic logo).
+- **Logo:** QuantCorner editorial uses the approved wordmark, imported unchanged and drawn after the print pass (no texture, rotation or recolour). By default it appears twice: small at the top for the whole reel (`logo_top`, Nuth 2026-10-12) and large on the end card (`logo`). Follow Visual Design Routing, Route 2 (generated components + authentic logo).
 - **No other brands:** no other brand marks, and no generated logos.
 - **Palette:** charcoal, cream and gray, plus teal and lavender as small strokes only.
 

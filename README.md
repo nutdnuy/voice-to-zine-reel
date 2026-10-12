@@ -34,7 +34,7 @@ Then ask Claude Code: *"make a reel from this recording: path/to/voice.m4a"*. Th
 
 ## Assets you supply
 
-- **Logo (optional):** set `ZINE_LOGO=/path/to/logo.png` (shown at the end, unaltered). Without it, no logo is drawn.
+- **Logo (optional):** set `ZINE_LOGO=/path/to/logo.png`. It is shown unaltered, small at the top for the whole reel (`logo_top`) and large on the end card (`logo`). Without it, no logo is drawn.
 - **Extra sound effects (optional):** only three effects ship here. The others the renderer schedules are listed in [assets/sfx/LICENSES.md](assets/sfx/LICENSES.md). Add files you have the rights to, or set `ZINE_SFX_DIR`. Missing ones are skipped.
 
 ## Layout
