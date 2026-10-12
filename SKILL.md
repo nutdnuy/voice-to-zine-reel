@@ -40,7 +40,7 @@ Paths: `SK = ~/.claude/skills/voice-to-zine-reel`, `PY = ~/.venvs/animate/bin/py
    - **Camera and marks:** for coordinates, build `$SK/scripts/plate_grid.sh <project> grid.jpg` and read it. A grid square is 256 plate px; plate x = 4 × tile x.
    - **Rules of thumb:** something new every 2–3 s (a camera key, a mark or a strip); 1–2 strips per scene of ≤ 4 words, bold English or Thai; push in on the detail the line names; one circle or random walk where it helps. Correct recogniser spellings in `captions`. Set `payoff` (the reveal line) and `accents` (`boom` on a big number).
    - **Chapter labels:** topic words only ("THE MARKET", "PARIS · 1900", "1900 → TODAY"). Never number them ("No. 01", "EP 2", "Part 3"): Nuth does not want viewers to see a count (2026-10-12). `resolve_story.py` rejects numbered labels.
-7. **Build both reels.** Run `$SK/scripts/make_reel.sh <project>`, about 6 minutes. It resolves the story, renders, places 100+ sound events from the scene data, generates the music bed (drums drop before the payoff and through the close), mixes A and B, and writes `renders/<name>-A-sfx.mp4`, `renders/<name>-B-sfx-music.mp4` and 720p `-preview.mp4` copies (< 30 MB), plus `review-output.txt`. For a sound-only change, use `make_reel.sh <project> --no-render`.
+7. **Build both reels.** Run `$SK/scripts/make_reel.sh <project>`, about 6 minutes. It resolves the story, renders, places 100+ sound events from the scene data, generates the music bed (drums drop before the payoff and through the close), mixes A and B (defaults above), and writes `renders/<name>-A-sfx.mp4`, `renders/<name>-B-sfx-music.mp4` and 720p `-preview.mp4` copies (< 30 MB), plus `review-output.txt`. For a sound-only change, use `make_reel.sh <project> --no-render`.
 8. **Check.** Look at stills of every scene: `node ~/.claude/skills/animate/tools/still.mjs <project> t1,t2,… out.png --scale 0.3`. Fix anything that is covered (a face under a strip, a mark off its object). Read the review:
    - `text: PASS` with 0 in the safe zone;
    - `dead beats: PASS`;
@@ -56,12 +56,12 @@ Paths: `SK = ~/.claude/skills/voice-to-zine-reel`, `PY = ~/.venvs/animate/bin/py
 ## Sound and music rules
 
 - **Sources:** SFX come only from `assets/sfx/` (see its `LICENSES.md`): Nuth's library (owner-approved 2026-10-11), the Video OS paper set, and Pixabay files. Add new files only with a licence row. Never pull audio from websites or from unlicensed folders.
-- **Levels (Nuth's Vox standard):** voice peak −6 dB; music peak −20 dB with a 2.5 kHz pocket, ducked 6 dB under the voice; SFX −13 to −24 dB by role. Master to about −15 LUFS, −1.5 dBTP. The payoff hit is the loudest moment, preceded by its silence.
+- **Levels (Nuth's preference, 2026-10-12):** voice peak −6 dB; effects at their role levels (−13 to −24 dB) minus 3 dB so the voice stays on top; music in version B at 25% of the old standard (peak −32 dB) with a 2.5 kHz pocket, ducked 6 dB under the voice. Master to −14 LUFS: loudnorm, then a gain + limiter stage because a peaky voice makes one-pass loudnorm undershoot (peak ≤ −1 dBFS). The payoff hit is the loudest moment, preceded by its silence. Adjust per reel with `mix_sfx.py --sfx-db / --music-db / --lufs`.
 - **Music:** `scripts/make_bed.py` is a story-arranged variant of Nuth's own `Video OS/resources/music/generators/make_bgm.py`. Prefer it; use another track only if Nuth supplies one with its licence.
 
 ## Brand
 
-- **Logo:** QuantCorner editorial uses the approved wordmark, imported unchanged and drawn after the print pass (no texture, rotation or recolour). By default it appears twice: small at the top for the whole reel (`logo_top`, Nuth 2026-10-12) and large on the end card (`logo`). Follow Visual Design Routing, Route 2 (generated components + authentic logo).
+- **Logo:** QuantCorner editorial uses the approved wordmark, imported unchanged and drawn after the print pass (no texture, rotation or recolour). By default it appears as a small badge in the bottom-right corner for the whole reel (`logo_corner`, Nuth 2026-10-12: under the captions, right edge x 925 so the phone's button column does not cover it; hidden once the end-card logo appears) and large on the end card (`logo`). `logo_corner: "top"` or `null` are the alternatives. Follow Visual Design Routing, Route 2 (generated components + authentic logo).
 - **No other brands:** no other brand marks, and no generated logos.
 - **Palette:** charcoal, cream and gray, plus teal and lavender as small strokes only.
 

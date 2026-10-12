@@ -13,7 +13,7 @@ A Claude Code skill: drop in a recorded voice-over, get two finished 9:16 Reels 
 2. **Cleans the voice**: cuts false starts and self-corrections on natural dips, compresses pauses (0.28 s between lines, 0.16 s inside), keeps a short silence before the payoff, can drop lines, and can replay the payoff phrase after a silent end card so you never re-record an ending. Every join is a 20 ms crossfade.
 3. **Generates one plate per story beat** with Codex CLI image generation: engraved, photocopied, torn-paper collage, no text. A portrait plate can be passed as a reference so a character keeps the same face.
 4. **Animates** from a `story.json` whose times are anchored to spoken words (`"l05@14+0.2"`): camera push-ins and pans onto the detail being said, hand-drawn teal/lavender circles and random walks, torn cream strips with tall condensed type, Thai/English captions with a karaoke sweep, motion at 12 fps. All lettering is set in code, so spelling (Thai included) is exact.
-5. **Sound**: 100+ effects placed from the scene data, a procedural music bed whose drums drop before the payoff and through the close, then mixes for A and B (voice peak −6 dB, music −20 dB with a 2.5 kHz pocket and ducking, master about −15 LUFS).
+5. **Sound**: 100+ effects placed from the scene data, a procedural music bed whose drums drop before the payoff and through the close, then mixes for A and B (voice peak −6 dB, effects 3 dB under it, music at −32 dB with a 2.5 kHz pocket and ducking, master −14 LUFS with a limiter; all adjustable: `mix_sfx.py --sfx-db --music-db --lufs`).
 6. **Checks**: text cut off or under the phone UI, dead beats, the loudest moment on the payoff.
 
 ## Requirements
@@ -34,7 +34,7 @@ Then ask Claude Code: *"make a reel from this recording: path/to/voice.m4a"*. Th
 
 ## Assets you supply
 
-- **Logo (optional):** set `ZINE_LOGO=/path/to/logo.png`. It is shown unaltered, small at the top for the whole reel (`logo_top`) and large on the end card (`logo`). Without it, no logo is drawn.
+- **Logo (optional):** set `ZINE_LOGO=/path/to/logo.png`. It is shown unaltered as a small badge in the bottom-right corner for the whole reel (`logo_corner`: `bottom-right` | `top` | `null`) and large on the end card (`logo`). Without it, no logo is drawn.
 - **Extra sound effects (optional):** only three effects ship here. The others the renderer schedules are listed in [assets/sfx/LICENSES.md](assets/sfx/LICENSES.md). Add files you have the rights to, or set `ZINE_SFX_DIR`. Missing ones are skipped.
 
 ## Layout

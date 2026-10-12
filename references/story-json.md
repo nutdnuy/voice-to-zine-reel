@@ -18,7 +18,7 @@ All story times are anchors resolved against the **cleaned** take (`voice.json`)
 - `quiet_from` — `"scene:N"` or an anchor: music drums drop from here to the closing button.
 - `accents` — `[[anchor, "boom"]]`: a BOOM SWOOSH landing on a big moment (a number, a twist).
 - `captions` — `{"lNN": "corrected Thai"}` for lines the recogniser misspelled; other lines use the transcript.
-- `logo` — `true` puts the approved wordmark large on the end card; `logo_top` (default `true`) keeps it small at the top for the whole reel.
+- `logo` — `true` puts the approved wordmark large on the end card; `logo_corner` — `"bottom-right"` (default: a small badge under the captions for the whole reel, hidden when the end-card logo appears), `"top"`, or `null`.
 - `scenes[]` — one per plate, in order:
   - `plate`: a name in `gen/` (`gen/<plate>.png`); a plate may be reused (the end card often reuses the opening plate).
   - `start`: anchor (the first scene starts at `0`); usually just before the line that opens the beat, e.g. `"l07-0.06"`.

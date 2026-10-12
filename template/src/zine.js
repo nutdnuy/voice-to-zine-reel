@@ -108,7 +108,7 @@ function renderFrame(t, canvas) {
   ink([[60, 1650], [330, 1560]], { w: 9, color: COL.teal, amt: 2.5, key: 'gd1' }); ink([[760, 1720], [1010, 1640]], { w: 9, color: COL.lav, amt: 2.5, key: 'gd2' });
   if (e > 0) plate(e - 1, { done: true, dx: -14 * (e % 2 ? 1 : -1), dy: 10 });
   plate(e);
-  ctx.save(); ctx.font = `400 26px ${TYPEF}`; ctx.fillStyle = 'rgba(239,227,200,0.85)'; ctx.textAlign = 'center'; ctx.fillText(CFG.tagline, 520, 126); ctx.restore();
+  ctx.save(); ctx.font = `400 30px ${TYPEF}`; ctx.fillStyle = 'rgba(239,227,200,0.85)'; ctx.textAlign = 'center'; ctx.fillText(CFG.tagline, 520, 118); ctx.restore();
   strip(CFG.title, -10, 520, 205, 96, -0.022, null);
   ctx.font = `700 34px ${HEADF}`; const cw = ctx.measureText(S[e].ch).width; ctx.save(); ctx.translate(915 - cw / 2, 312); ctx.rotate(0.03);
   cut(rect(-cw / 2 - 18, -26, cw + 36, 48, 2), INK, { key: 'chap' + e, tear: 1.5, sb: 6, shc: 'rgba(0,0,0,0.4)', grain: false, shade: false });
@@ -119,9 +119,13 @@ function renderFrame(t, canvas) {
     ctx.fillStyle = 'rgba(245,235,210,0.12)'; ctx.beginPath(); for (let n = 0; n < 1600; n++) ctx.rect(R.r(0, W), R.r(0, H), 1.6, 1.6); ctx.fill();
     const v = ctx.createRadialGradient(540, 900, 650, 540, 900, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.35)'); ctx.fillStyle = v; ctx.fillRect(0, 0, W, H); }
   // the approved wordmark, unchanged, after the print pass (never textured, rotated or recoloured):
-  // small at the top for the whole reel (CFG.logo_top), large on the end card at LOGO_T
+  // a small corner badge for the whole reel (CFG.logo_corner: 'bottom-right' | 'top' | null), large on the end card at
+  // LOGO_T (the corner badge hides then). Bottom-right sits under the captions, right edge at x 925 (left of the phone's buttons)
   const logo = asset('quantcorner-wordmark-dark.png');
-  if (logo && CFG.logo_top) { const lw = 260, lh = lw * logo.naturalHeight / logo.naturalWidth; ctx.drawImage(logo, 520 - lw / 2, 30, lw, lh); }
+  if (logo && CFG.logo_corner && !(LOGO_T != null && TT >= LOGO_T)) {
+    const lw = CFG.logo_corner === 'top' ? 260 : 240, lh = lw * logo.naturalHeight / logo.naturalWidth;
+    if (CFG.logo_corner === 'top') ctx.drawImage(logo, 520 - lw / 2, 30, lw, lh); else ctx.drawImage(logo, 925 - lw, 1520, lw, lh);
+  }
   if (logo && LOGO_T != null && TT >= LOGO_T) { const k = EZ.o3(clamp((TT - LOGO_T) / 0.3)), lw = 560 * lerp(0.92, 1, k), lh = lw * logo.naturalHeight / logo.naturalWidth; ctx.globalAlpha = k; ctx.drawImage(logo, 500 - lw / 2, 1423 - lh / 2, lw, lh); ctx.globalAlpha = 1; }
   ctx.restore();
   return SHOTS[e].id;
