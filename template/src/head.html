@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zine reel</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #1b1714; overflow: hidden; }
+  body { display: flex; align-items: center; justify-content: center; }
+  canvas { height: min(100vh, calc(100vw * 16 / 9)); width: auto; aspect-ratio: 9 / 16; display: block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+"use strict";
+// voice-to-zine-reel template head. Story data: src/config.js (CFG, written by scripts/resolve_story.py).
+// VOICE (the cleaned take's lines and word times) is injected by the animate skill's build from voice.json.
+const FPS = 24, W = 1080, H = 1920;
+const SAFE = { top: 250, bottom: 420, right: 140 };
+const HAND = '"Bradley Hand", "Chalkboard SE", "Segoe Print", "Comic Neue", cursive';
+const CX = W / 2;
